@@ -4,7 +4,7 @@ This is a copy of [xv-6-risc-v](https://github.com/mit-pdos/xv6-riscv) for my ow
 
 ## Packages to install
 
-I use fedora 33 with the following packages installed
+I use Fedora 33 with the following packages installed
 
 - `qemu-system-riscv.x86_64`
 - `gcc-riscv64-linux-gnu.x86_64`
@@ -22,3 +22,7 @@ bear make
 ```
 
 And you'll get the `compile_commands.json` file in the xv-6 directory. It's already included in this git repo and clangd should be able to recognize that.
+
+## Debug
+
+Unfortunately, I can't find information about gdb for rescv for Fedora 33. So I had to compile the whole riscv [tool-chain](https://github.com/riscv/riscv-gnu-toolchain) by myself. Because I don't need the `Newlib` module, I delete it from the repo. You can just follow the guide in README to install the toolkit to `/opt/riscv`, and you can start the gdb with `de.sh`.
