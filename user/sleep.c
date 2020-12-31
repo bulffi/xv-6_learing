@@ -4,7 +4,7 @@
 int main(int argc, char const *argv[])
 {
     if (argc != 2) {
-        char* error_info = "";
+        char* error_info = "Please enter an int\n";
         write(1, error_info, strlen(error_info));
     }
     int time_to_sleep = atoi(argv[1]);
