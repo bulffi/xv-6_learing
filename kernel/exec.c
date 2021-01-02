@@ -72,13 +72,19 @@ exec(char *path, char **argv)
     goto bad;
   sz = sz1;
   uvmclear(pagetable, sz-2*PGSIZE);
+  // Attention: stack pointer is at the top of 2nd page
   sp = sz;
+  // -> sp
+  // |   |
+  // -> stackbase
+  // |   |
   stackbase = sp - PGSIZE;
 
   // Push argument strings, prepare rest of stack in ustack.
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
+    // Attention: place the stack pointer from top to bottom
     sp -= strlen(argv[argc]) + 1;
     sp -= sp % 16; // riscv sp must be 16-byte aligned
     if(sp < stackbase)

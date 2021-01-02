@@ -54,6 +54,8 @@ kfree(void *pa)
   // Fill with junk to catch dangling refs.
   memset(pa, 1, PGSIZE);
 
+  // Attention: This cast is very special
+  // Every node in the free list is actually stored in the page itself!
   r = (struct run*)pa;
 
   acquire(&kmem.lock);

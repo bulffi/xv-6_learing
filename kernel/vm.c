@@ -91,9 +91,13 @@ walk(pagetable_t pagetable, uint64 va, int alloc)
       if(!alloc || (pagetable = (pde_t*)kalloc()) == 0)
         return 0;
       memset(pagetable, 0, PGSIZE);
+      // Attention: This pte is the former layer
+      // So that we can safely assign it with address of our new page table
       *pte = PA2PTE(pagetable) | PTE_V;
     }
   }
+  // Attention: we always return the last level pte, even if it
+  // is newly allocated.
   return &pagetable[PX(0, va)];
 }
 
@@ -123,6 +127,7 @@ walkaddr(pagetable_t pagetable, uint64 va)
 // add a mapping to the kernel page table.
 // only used when booting.
 // does not flush TLB or enable paging.
+// perm: The permission of that page
 void
 kvmmap(pagetable_t kpgtbl, uint64 va, uint64 pa, uint64 sz, int perm)
 {
