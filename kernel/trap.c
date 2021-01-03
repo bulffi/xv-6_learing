@@ -116,6 +116,11 @@ usertrapret(void)
   w_sstatus(x);
 
   // set S Exception Program Counter to the saved user pc.
+
+  // =================================
+  // STRONG: The exec will return to the entry of a new program!!!!
+  // =================================
+  
   w_sepc(p->trapframe->epc);
 
   // tell trampoline.S the user page table to switch to.
